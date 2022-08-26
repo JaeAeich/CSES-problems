@@ -1,0 +1,1 @@
+{"name":"Local: common divisor","url":"d:\\prog\\mathematic\\common divisor.cpp","tests":[{"id":1645867450347,"input":"5\n3 14 15 7 9","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\prog\\mathematic\\common divisor.cpp","group":"local","local":true}
