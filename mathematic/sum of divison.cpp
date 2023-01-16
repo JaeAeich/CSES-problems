@@ -1,68 +1,52 @@
-// sum of divisor mod 1000000007
 #include <bits/stdc++.h>
 using namespace std;
-typedef unsigned long long int ll;
 
-ll ModDivSum(ll n){
-    ll ans=0;
-    ll m=1000000007;
-    for(ll i=1;i<=sqrt(n);i++){
-        // ans=((ans%m)+(i%m+((n/i)%m)));
-        // if(ans>m){
-            if(n/i!=i && n%i==0){
-                ans=((ans+(i%m)+((n/i)%m)))%m;
-            }
-            else if(n/i==i && n%i==0){
-                ans=((ans)+(i%m))%m;
-            }
-            else{
-                continue;
-            }
-        // }
-        // else{
-        //     if(n/i!=i && n%i==0){
-        //         ans+=i+n/i;
-        //     }
-        //     else if(n/i==i && n%i==0){
-        //         ans+=i;
+int mod = 1e9 + 7;
+map<int, int> m;
 
-        //     }
-        //     else{
-        //         continue;
-        //     }
-        // }
+void div(long int n)
+{
+    for (int i = 2; i * i <= n; i++)
+    {
+        while (n % i == 0)
+        {
+            m[i]++;
+            n /= i;
+        }
     }
-    return ans;
+    if (n > 1)
+    {
+        m[n]++;
+    }
 }
 
-ll SumDiv(ll n){
-    ll ans=0;
-    for(ll i=1;i<=sqrt(n);i++){
-        if(n/i!=i && n%i==0){
-            ans+=i+n/i;
+int binpow(long long int a, long long int b)
+{
+    int res = 1;
+    while (b)
+    {
+        if (b & 1)
+        {
+            res = (a * 1LL * res) % mod;
         }
-        else if(n/i==i && n%i==0){
-            ans+=i;
-
-        }
-        else{
-            continue;
-        }
+        a = (a * 1LL * a) % mod;
+        b >>= 1;
     }
-    return ans;
+    return res;
 }
 
-int main(){
-    ll n;
-    cin>>n;
-    ll m=1000000007;
-    ll ans=0;
-    for (ll i=1;i<=n;i++){
-        ans=(ans%m+ModDivSum(i)%m)%m;
+int main()
+{
+    long int n;
+    cin >> n;
+    div(n);
+    int ans = 1;
+    for (auto it = m.begin(); it != m.end(); it++)
+    {
+        int gp = (binpow(it->first, it->second + 1) - 1) / (it->first - 1);
+        ans = (ans * 1LL * gp) % mod;
     }
-    // cout<<SumDiv(n);
-    cout<<ans;
+    cout << ans << endl;
     return 0;
 }
-
-// (a+b)%m=((a%m)+(b%m))%m
+// Code By - Jae Aeich
